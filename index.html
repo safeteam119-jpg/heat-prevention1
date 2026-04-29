@@ -3,61 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>다이소 온열질환 예방 가이드</title>
+    <title>다이소 매장 온열질환 예방</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI','Malgun Gothic','맑은 고딕',sans-serif; background: #f0f4f8; color: #333; min-height: 100vh; }
         .header { background: linear-gradient(135deg, #e53e3e, #ed8936); color: white; text-align: center; padding: 28px 20px 22px; }
         .header h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
-        .header .subtitle { font-size: 0.9rem; opacity: 0.92; }
         .header .logo { font-size: 0.8rem; margin-top: 8px; opacity: 0.8; letter-spacing: 2px; }
         .container { max-width: 480px; margin: 0 auto; padding: 20px 16px 40px; }
-        .menu-buttons { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
-        .menu-btn { display: flex; align-items: center; gap: 16px; background: white; border: none; border-radius: 16px; padding: 22px 20px; cursor: pointer; box-shadow: 0 2px 12px rgba(0,0,0,0.08); transition: transform 0.15s, box-shadow 0.15s; text-align: left; width: 100%; }
-        .menu-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.13); }
-        .menu-btn:active { transform: scale(0.98); }
-        .menu-btn .icon { font-size: 2.2rem; flex-shrink: 0; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 14px; }
-        .menu-btn.calc .icon { background: #fff5f5; }
-        .menu-btn.check .icon { background: #fffff0; }
-        .menu-btn .text h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
-        .menu-btn .text p { font-size: 0.82rem; color: #888; line-height: 1.4; }
-        .menu-btn .arrow { margin-left: auto; font-size: 1.2rem; color: #ccc; }
-        .page { display: none; }
-        .page.active { display: block; }
-        .back-btn { display: inline-flex; align-items: center; gap: 6px; background: none; border: none; color: #e53e3e; font-size: 0.95rem; font-weight: 600; cursor: pointer; padding: 8px 0; margin-bottom: 12px; }
-        .back-btn:hover { text-decoration: underline; }
-        .card { background: white; border-radius: 16px; padding: 24px 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); margin-bottom: 16px; }
-        .card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-        .input-group { margin-bottom: 14px; }
-        .input-group label { display: block; font-size: 0.88rem; font-weight: 600; color: #555; margin-bottom: 6px; }
-        .input-row { display: flex; align-items: center; gap: 8px; }
-        .input-row input { flex: 1; padding: 12px 14px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1.1rem; font-weight: 600; text-align: center; outline: none; transition: border-color 0.2s; -moz-appearance: textfield; }
-        .input-row input::-webkit-outer-spin-button, .input-row input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-        .input-row input:focus { border-color: #e53e3e; }
-        .input-row .unit { font-size: 0.95rem; font-weight: 600; color: #888; flex-shrink: 0; }
-        .calc-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #e53e3e, #ed8936); color: white; border: none; border-radius: 12px; font-size: 1.05rem; font-weight: 700; cursor: pointer; margin-top: 6px; transition: opacity 0.2s; }
-        .calc-btn:hover { opacity: 0.9; }
-        .result-area { display: none; margin-top: 16px; }
-        .result-area.show { display: block; animation: fadeUp 0.35s ease; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        .result-box { text-align: center; padding: 24px 16px; border-radius: 14px; margin-bottom: 16px; }
-        .result-box .temp-value { font-size: 2.8rem; font-weight: 800; line-height: 1; }
-        .result-box .temp-label { font-size: 0.85rem; margin-top: 4px; opacity: 0.85; }
-        .result-box .level-badge { display: inline-block; padding: 6px 18px; border-radius: 20px; font-size: 0.95rem; font-weight: 700; margin-top: 10px; }
-        .level-normal .result-box { background: #f0fff4; color: #276749; }
+
+        /* 날씨 카드 */
+        .weather-card { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); margin-bottom: 16px; }
+        .weather-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+        .region-select { width: 100%; padding: 12px 14px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1rem; font-weight: 600; outline: none; background: white; color: #333; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+        .region-select:focus { border-color: #e53e3e; }
+        .weather-loading { text-align: center; padding: 20px; color: #999; font-size: 0.9rem; }
+        .weather-data { margin-top: 16px; }
+        .weather-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+        .weather-stat { background: #f7fafc; border-radius: 12px; padding: 14px; text-align: center; }
+        .weather-stat .stat-icon { font-size: 1.4rem; }
+        .weather-stat .stat-value { font-size: 1.5rem; font-weight: 800; margin: 4px 0; }
+        .weather-stat .stat-label { font-size: 0.78rem; color: #888; }
+        .weather-stat.temp .stat-value { color: #e53e3e; }
+        .weather-stat.humid .stat-value { color: #3182ce; }
+
+        /* 체감온도 결과 */
+        .heat-result { text-align: center; padding: 18px; border-radius: 14px; margin-top: 10px; }
+        .heat-result .heat-value { font-size: 2.2rem; font-weight: 800; line-height: 1; }
+        .heat-result .heat-label { font-size: 0.82rem; margin-bottom: 4px; opacity: 0.85; }
+        .heat-result .level-badge { display: inline-block; padding: 5px 16px; border-radius: 20px; font-size: 0.88rem; font-weight: 700; margin-top: 8px; }
+        .level-normal .heat-result { background: #f0fff4; color: #276749; }
         .level-normal .level-badge { background: #c6f6d5; color: #276749; }
-        .level-interest .result-box { background: #fffff0; color: #975a16; }
+        .level-interest .heat-result { background: #fffff0; color: #975a16; }
         .level-interest .level-badge { background: #fefcbf; color: #975a16; }
-        .level-caution .result-box { background: #fffaf0; color: #c05621; }
+        .level-caution .heat-result { background: #fffaf0; color: #c05621; }
         .level-caution .level-badge { background: #feebc8; color: #c05621; }
-        .level-warning .result-box { background: #fff5f5; color: #c53030; }
+        .level-warning .heat-result { background: #fff5f5; color: #c53030; }
         .level-warning .level-badge { background: #fed7d7; color: #c53030; }
-        .level-danger .result-box { background: #c53030; color: white; }
+        .level-danger .heat-result { background: #c53030; color: white; }
         .level-danger .level-badge { background: rgba(255,255,255,0.25); color: white; }
-        .prevention-card { border-left: 4px solid; padding-left: 16px; }
+
+        /* 예방수칙 */
+        .prevention-card { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); margin-bottom: 16px; border-left: 4px solid #e2e8f0; display: none; }
+        .prevention-card.show { display: block; animation: fadeUp 0.35s ease; }
         .prevention-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 10px; }
         .prevention-card ul { list-style: none; padding: 0; }
-        .prevention-card ul li { font-size: 0.88rem; line-height: 1.7; padding-left: 20px; position: relative; color: #555; }
+        .prevention-card ul li { font-size: 0.86rem; line-height: 1.7; padding-left: 20px; position: relative; color: #555; }
         .prevention-card ul li::before { content: '✓'; position: absolute; left: 0; font-weight: 700; }
         .level-normal .prevention-card { border-color: #48bb78; }
         .level-normal .prevention-card ul li::before { color: #48bb78; }
@@ -69,6 +60,27 @@
         .level-warning .prevention-card ul li::before { color: #e53e3e; }
         .level-danger .prevention-card { border-color: #9b2c2c; }
         .level-danger .prevention-card ul li::before { color: #9b2c2c; }
+
+        .weather-time { text-align: center; font-size: 0.75rem; color: #aaa; margin-top: 10px; }
+
+        /* 체크리스트 버튼 */
+        .menu-btn { display: flex; align-items: center; gap: 16px; background: white; border: none; border-radius: 16px; padding: 22px 20px; cursor: pointer; box-shadow: 0 2px 12px rgba(0,0,0,0.08); transition: transform 0.15s, box-shadow 0.15s; text-align: left; width: 100%; margin-bottom: 16px; }
+        .menu-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.13); }
+        .menu-btn:active { transform: scale(0.98); }
+        .menu-btn .icon { font-size: 2.2rem; flex-shrink: 0; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 14px; background: #fffff0; }
+        .menu-btn .text h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+        .menu-btn .text p { font-size: 0.82rem; color: #888; line-height: 1.4; }
+        .menu-btn .arrow { margin-left: auto; font-size: 1.2rem; color: #ccc; }
+
+        /* 페이지 전환 */
+        .page { display: none; }
+        .page.active { display: block; }
+        .back-btn { display: inline-flex; align-items: center; gap: 6px; background: none; border: none; color: #e53e3e; font-size: 0.95rem; font-weight: 600; cursor: pointer; padding: 8px 0; margin-bottom: 12px; }
+        .back-btn:hover { text-decoration: underline; }
+        .card { background: white; border-radius: 16px; padding: 24px 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); margin-bottom: 16px; }
+        .card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+
+        /* 체크리스트 */
         .checklist-item { display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid #f0f0f0; gap: 12px; }
         .checklist-item:last-child { border-bottom: none; }
         .checklist-item .num { font-size: 0.82rem; font-weight: 700; color: #aaa; flex-shrink: 0; width: 24px; }
@@ -79,6 +91,8 @@
         .toggle-btn.no.selected { background: #f0fff4; border-color: #48bb78; color: #48bb78; }
         .check-counter { text-align: center; padding: 12px; background: #f7fafc; border-radius: 10px; margin-top: 12px; font-size: 0.9rem; color: #666; }
         .check-counter .count { font-size: 1.4rem; font-weight: 800; color: #e53e3e; }
+
+        /* 가이드라인 */
         .guideline-area { display: none; margin-top: 16px; }
         .guideline-area.show { display: block; animation: fadeUp 0.35s ease; }
         .guideline-card { background: #fff5f5; border: 2px solid #fed7d7; border-radius: 14px; padding: 20px; }
@@ -88,48 +102,63 @@
         .guideline-card ol li strong { color: #c53030; }
         .guideline-card .emergency { margin-top: 14px; padding: 12px; background: #c53030; color: white; border-radius: 10px; text-align: center; font-size: 0.95rem; font-weight: 700; }
         .guideline-card .emergency a { color: #fefcbf; text-decoration: underline; }
-        .info-banner { background: #ebf8ff; border-radius: 12px; padding: 14px 16px; margin-top: 16px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.82rem; color: #2b6cb0; line-height: 1.5; }
-        .info-banner .info-icon { font-size: 1.2rem; flex-shrink: 0; }
-        .footer { text-align: center; padding: 20px; font-size: 0.75rem; color: #aaa; }
-        .range-info { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
-        .range-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #666; }
-        .range-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
-        .range-dot.normal { background: #48bb78; }
-        .range-dot.interest { background: #ecc94b; }
-        .range-dot.caution { background: #ed8936; }
-        .range-dot.warning { background: #e53e3e; }
-        .range-dot.danger { background: #9b2c2c; }
+
         .reset-btn { width: 100%; padding: 12px; background: #f7fafc; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 0.9rem; font-weight: 600; color: #888; cursor: pointer; margin-top: 8px; transition: all 0.15s; }
         .reset-btn:hover { background: #edf2f7; border-color: #cbd5e0; }
+
+        .info-banner { background: #ebf8ff; border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 10px; font-size: 0.82rem; color: #2b6cb0; line-height: 1.5; }
+        .info-banner .info-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+        .footer { text-align: center; padding: 20px; font-size: 0.75rem; color: #aaa; }
+
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+        .error-msg { text-align: center; padding: 16px; color: #e53e3e; font-size: 0.88rem; background: #fff5f5; border-radius: 10px; margin-top: 12px; }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>🌡️ 매장 온열질환 예방</h1>
-
         <p class="logo">DAISO</p>
     </div>
     <div class="container">
         <!-- 메인 페이지 -->
         <div id="mainPage" class="page active">
-            <div class="menu-buttons">
-                <button class="menu-btn calc" onclick="showPage('calcPage')">
-                    <div class="icon">🌡️</div>
-                    <div class="text">
-                        <h2>체감온도 계산기</h2>
-                        <p>현재 온도와 습도를 입력하면<br>체감온도와 예방수칙을 안내해 드려요</p>
-                    </div>
-                    <span class="arrow">›</span>
-                </button>
-                <button class="menu-btn check" onclick="showPage('checkPage')">
-                    <div class="icon">📋</div>
-                    <div class="text">
-                        <h2>온열질환 자각증상 체크리스트</h2>
-                        <p>현재 느끼는 증상을 체크하고<br>대응 가이드라인을 확인하세요</p>
-                    </div>
-                    <span class="arrow">›</span>
-                </button>
+            <!-- 실시간 날씨 카드 -->
+            <div class="weather-card">
+                <h3>📍 지역별 실시간 날씨</h3>
+                <select id="regionSelect" class="region-select" onchange="fetchWeather()">
+                    <option value="">지역을 선택하세요</option>
+                    <option value="seoul">서울</option>
+                    <option value="incheon">인천</option>
+                    <option value="gyeonggi">경기 (수원)</option>
+                    <option value="busan">부산</option>
+                    <option value="daegu">대구</option>
+                    <option value="gwangju">광주</option>
+                    <option value="daejeon">대전</option>
+                    <option value="ulsan">울산</option>
+                    <option value="sejong">세종</option>
+                    <option value="gangwon">강원 (춘천)</option>
+                    <option value="chungbuk">충북 (청주)</option>
+                    <option value="chungnam">충남 (홍성)</option>
+                    <option value="jeonbuk">전북 (전주)</option>
+                    <option value="jeonnam">전남 (무안)</option>
+                    <option value="gyeongbuk">경북 (안동)</option>
+                    <option value="gyeongnam">경남 (창원)</option>
+                    <option value="jeju">제주</option>
+                </select>
+                <div id="weatherContent">
+                    <div class="weather-loading">⬆️ 지역을 선택하면 현재 날씨가 표시됩니다</div>
+                </div>
             </div>
+
+            <!-- 예방수칙 -->
+            <div id="preventionCard" class="prevention-card">
+                <h4 id="preventionTitle"></h4>
+                <ul id="preventionList"></ul>
+            </div>
+
+            <!-- 안내 배너 -->
             <div class="info-banner">
                 <span class="info-icon">💡</span>
                 <span>여름철 작업 중 더위를 느끼실 때는 수시로 체감온도를 확인해주세요.</span>
@@ -138,54 +167,16 @@
                 <span class="info-icon">💡</span>
                 <span>이상 증상이 느껴지면 즉시 체크리스트를 활용하여 적절한 조치를 취해주세요.</span>
             </div>
-        </div>
 
-        <!-- 체감온도 계산기 페이지 -->
-        <div id="calcPage" class="page">
-            <button class="back-btn" onclick="showPage('mainPage')">← 메인으로</button>
-            <div class="card">
-                <h3>🌡️ 체감온도 계산기</h3>
-                <div class="input-group">
-                    <label>현재 기온</label>
-                    <div class="input-row">
-                        <input type="number" id="tempInput" placeholder="예: 33" min="28" max="40" step="1">
-                        <span class="unit">°C</span>
-                    </div>
+            <!-- 체크리스트 버튼 -->
+            <button class="menu-btn" onclick="showPage('checkPage')">
+                <div class="icon">📋</div>
+                <div class="text">
+                    <h2>온열질환 자각증상 체크리스트</h2>
+                    <p>현재 느끼는 증상을 체크하고<br>대응 가이드라인을 확인하세요</p>
                 </div>
-                <div class="input-group">
-                    <label>현재 상대습도</label>
-                    <div class="input-row">
-                        <input type="number" id="humidInput" placeholder="예: 70" min="40" max="90" step="5">
-                        <span class="unit">%</span>
-                    </div>
-                </div>
-                <button class="calc-btn" onclick="calculateHeatIndex()">체감온도 계산하기</button>
-                <div class="range-info">
-                    <div class="range-item"><span class="range-dot normal"></span> ~32.9°C 보통</div>
-                    <div class="range-item"><span class="range-dot interest"></span> 33~34.9°C 관심</div>
-                    <div class="range-item"><span class="range-dot caution"></span> 35~36.9°C 주의</div>
-                    <div class="range-item"><span class="range-dot warning"></span> 37~39.9°C 경고</div>
-                    <div class="range-item"><span class="range-dot danger"></span> 40°C~ 위험</div>
-                </div>
-            </div>
-            <div id="resultArea" class="result-area">
-                <div id="resultWrapper">
-                    <div class="card">
-                        <div id="resultBox" class="result-box">
-                            <div class="temp-label">체감온도</div>
-                            <div id="resultTemp" class="temp-value"></div>
-                            <div id="resultBadge" class="level-badge"></div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div id="preventionCard" class="prevention-card">
-                            <h4 id="preventionTitle"></h4>
-                            <ul id="preventionList"></ul>
-                        </div>
-                    </div>
-                </div>
-                <button class="reset-btn" onclick="resetCalc()">다시 계산하기</button>
-            </div>
+                <span class="arrow">›</span>
+            </button>
         </div>
 
         <!-- 자각증상 체크리스트 페이지 -->
@@ -216,9 +207,31 @@
             <button class="reset-btn" onclick="resetChecklist()" style="margin-top:16px;">체크리스트 초기화</button>
         </div>
     </div>
-    <div class="footer">다이소 안전보건팀 | 온열질환 예방 가이드</div>
+    <div class="footer">다이소 안전보건팀 | 온열질환 예방 가이드<br>날씨 데이터: Open-Meteo API</div>
 
 <script>
+// ===== 지역 좌표 =====
+const regions = {
+    seoul:    { name: '서울',       lat: 37.5665, lon: 126.9780 },
+    incheon:  { name: '인천',       lat: 37.4563, lon: 126.7052 },
+    gyeonggi: { name: '경기 (수원)', lat: 37.2636, lon: 127.0286 },
+    busan:    { name: '부산',       lat: 35.1796, lon: 129.0756 },
+    daegu:    { name: '대구',       lat: 35.8714, lon: 128.6014 },
+    gwangju:  { name: '광주',       lat: 35.1595, lon: 126.8526 },
+    daejeon:  { name: '대전',       lat: 36.3504, lon: 127.3845 },
+    ulsan:    { name: '울산',       lat: 35.5384, lon: 129.3114 },
+    sejong:   { name: '세종',       lat: 36.4800, lon: 127.2890 },
+    gangwon:  { name: '강원 (춘천)', lat: 37.8813, lon: 127.7298 },
+    chungbuk: { name: '충북 (청주)', lat: 36.6424, lon: 127.4890 },
+    chungnam: { name: '충남 (홍성)', lat: 36.6011, lon: 126.6603 },
+    jeonbuk:  { name: '전북 (전주)', lat: 35.8242, lon: 127.1480 },
+    jeonnam:  { name: '전남 (무안)', lat: 34.9906, lon: 126.4714 },
+    gyeongbuk:{ name: '경북 (안동)', lat: 36.5684, lon: 128.7294 },
+    gyeongnam:{ name: '경남 (창원)', lat: 35.2280, lon: 128.6811 },
+    jeju:     { name: '제주',       lat: 33.4996, lon: 126.5312 }
+};
+
+// ===== 체감온도 산출표 =====
 const heatIndexTable = {
     40: {28:26.6,29:27.6,30:28.5,31:29.5,32:30.4,33:31.4,34:32.4,35:33.3,36:34.3,37:35.3,38:36.2,39:37.2,40:38.2},
     45: {28:27.1,29:28.1,30:29.0,31:30.0,32:31.0,33:32.0,34:32.9,35:33.9,36:34.9,37:35.9,38:36.9,39:37.8,40:38.8},
@@ -233,76 +246,102 @@ const heatIndexTable = {
     90: {28:30.8,29:31.8,30:32.9,31:33.9,32:34.9,33:36.0,34:37.0,35:38.1,36:39.1,37:40.2,38:41.2,39:42.3,40:43.3}
 };
 
+// ===== 체감온도 계산 (테이블 보간) =====
+function getHeatIndex(temp, humid) {
+    // 테이블 범위 내이면 테이블 사용
+    const t = Math.round(temp);
+    const h = Math.round(humid / 5) * 5;
+    if (t >= 28 && t <= 40 && h >= 40 && h <= 90) {
+        const tClamped = Math.max(28, Math.min(40, t));
+        const hClamped = Math.max(40, Math.min(90, h));
+        return heatIndexTable[hClamped]?.[tClamped] || null;
+    }
+    // 범위 밖이면 간이 공식 사용
+    return temp;
+}
+
+// ===== 위험 단계 판별 =====
+function getLevel(heatIndex) {
+    if (heatIndex < 33) return { level: 'normal', text: '보통', preventions: { title: '☀️ 일반 예방수칙', items: ['시원한 물을 자주 마셔 수분을 보충하세요','통풍이 잘 되는 옷을 착용하세요','매장 내 환기를 수시로 확인하세요','휴식 시간을 규칙적으로 가지세요'] }};
+    if (heatIndex < 35) return { level: 'interest', text: '관심', preventions: { title: '⚡ 관심 단계 예방수칙', items: ['물을 자주 마시고 카페인 음료는 피하세요','매장 내 온도를 수시로 확인하세요','어지러움이나 두통이 느껴지면 즉시 휴식하세요','동료 직원의 건강 상태도 함께 살펴주세요','가능하면 직사광선을 피하세요'] }};
+    if (heatIndex < 37) return { level: 'caution', text: '주의 (주의보)', preventions: { title: '🔶 주의 단계 예방수칙', items: ['야외 작업 및 외부 활동을 최소화하세요','15~20분마다 시원한 물을 마시세요','매시간 10~15분 이상 시원한 곳에서 휴식하세요','몸에 이상 증상이 느껴지면 즉시 관리자에게 알리세요','에어컨, 선풍기 등 냉방기구를 적극 활용하세요','자각증상 체크리스트를 수시로 확인하세요'] }};
+    if (heatIndex < 40) return { level: 'warning', text: '경고 (경보)', preventions: { title: '🔴 경고 단계 예방수칙', items: ['야외 활동을 자제하고 실내에서 근무하세요','10분마다 수분을 섭취하세요','매시간 15분 이상 반드시 휴식하세요','두통, 어지러움, 구역질 등 증상 발생 시 즉시 작업을 중단하세요','시원한 물수건으로 목, 겨드랑이 등을 식혀주세요','혼자 작업하지 말고 동료와 함께 근무하세요','증상이 심해지면 119에 즉시 신고하세요'] }};
+    return { level: 'danger', text: '위험', preventions: { title: '🚨 위험 단계 예방수칙', items: ['모든 야외 활동을 즉시 중단하세요','냉방이 되는 실내에서만 활동하세요','수시로 물을 마시고 절대 갈증을 참지 마세요','조금이라도 이상 증상이 느껴지면 즉시 작업을 중단하세요','관리자에게 즉시 보고하고 시원한 장소로 이동하세요','의식이 흐려지거나 체온이 높아지면 119에 즉시 신고하세요','동료 직원의 상태를 수시로 확인하세요'] }};
+}
+
+// ===== Open-Meteo API로 날씨 가져오기 =====
+async function fetchWeather() {
+    const regionKey = document.getElementById('regionSelect').value;
+    if (!regionKey) return;
+
+    const region = regions[regionKey];
+    const weatherContent = document.getElementById('weatherContent');
+    const preventionCard = document.getElementById('preventionCard');
+
+    weatherContent.innerHTML = '<div class="weather-loading">🔄 날씨 정보를 불러오는 중...</div>';
+    preventionCard.classList.remove('show');
+
+    try {
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + region.lat + '&longitude=' + region.lon + '&current=temperature_2m,relative_humidity_2m&timezone=Asia/Seoul';
+        const res = await fetch(url);
+        const data = await res.json();
+
+        const temp = data.current.temperature_2m;
+        const humid = data.current.relative_humidity_2m;
+        const heatIndex = getHeatIndex(temp, humid);
+        const levelInfo = getLevel(heatIndex || temp);
+
+        const now = new Date();
+        const timeStr = now.getFullYear() + '.' + String(now.getMonth()+1).padStart(2,'0') + '.' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+
+        let html = '<div class="weather-data" id="weatherWrapper">';
+        html += '<div class="weather-stats">';
+        html += '<div class="weather-stat temp"><div class="stat-icon">🌡️</div><div class="stat-value">' + temp.toFixed(1) + '°C</div><div class="stat-label">현재 기온</div></div>';
+        html += '<div class="weather-stat humid"><div class="stat-icon">💧</div><div class="stat-value">' + humid + '%</div><div class="stat-label">상대습도</div></div>';
+        html += '</div>';
+
+        html += '<div class="heat-result"><div class="heat-label">📍 ' + region.name + ' 체감온도</div>';
+        html += '<div class="heat-value">' + (heatIndex ? heatIndex.toFixed(1) : temp.toFixed(1)) + '°C</div>';
+        html += '<div class="level-badge">' + levelInfo.text + '</div></div>';
+        html += '<div class="weather-time">🕐 ' + timeStr + ' 기준</div>';
+        html += '</div>';
+
+        weatherContent.innerHTML = html;
+
+        // 레벨 클래스 적용
+        document.getElementById('weatherWrapper').classList.add('level-' + levelInfo.level);
+
+        // 예방수칙 표시
+        preventionCard.className = 'prevention-card show level-' + levelInfo.level;
+        document.getElementById('preventionTitle').textContent = levelInfo.preventions.title;
+        document.getElementById('preventionList').innerHTML = levelInfo.preventions.items.map(function(item) { return '<li>' + item + '</li>'; }).join('');
+
+    } catch (e) {
+        weatherContent.innerHTML = '<div class="error-msg">⚠️ 날씨 정보를 불러올 수 없습니다.<br>인터넷 연결을 확인해주세요.</div>';
+    }
+}
+
+// ===== 페이지 전환 =====
 function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
     document.getElementById(pageId).classList.add('active');
     window.scrollTo(0, 0);
 }
 
-function calculateHeatIndex() {
-    const tempRaw = parseFloat(document.getElementById('tempInput').value);
-    const humidRaw = parseFloat(document.getElementById('humidInput').value);
-    if (isNaN(tempRaw) || isNaN(humidRaw)) { alert('온도와 습도를 모두 입력해주세요.'); return; }
-    const temp = Math.max(28, Math.min(40, Math.round(tempRaw)));
-    const humid = Math.max(40, Math.min(90, Math.round(humidRaw / 5) * 5));
-    const heatIndex = heatIndexTable[humid]?.[temp];
-    if (heatIndex === undefined) { alert('입력 범위를 확인해주세요.\n기온: 28~40°C, 습도: 40~90%'); return; }
-    displayResult(heatIndex);
-}
-
-function displayResult(heatIndex) {
-    const resultArea = document.getElementById('resultArea');
-    const resultWrapper = document.getElementById('resultWrapper');
-    const resultTemp = document.getElementById('resultTemp');
-    const resultBadge = document.getElementById('resultBadge');
-    const preventionTitle = document.getElementById('preventionTitle');
-    const preventionList = document.getElementById('preventionList');
-    let level, levelText, preventions;
-    if (heatIndex < 33) {
-        level='normal'; levelText='보통';
-        preventions={title:'☀️ 일반 예방수칙',items:['시원한 물을 자주 마셔 수분을 보충하세요','통풍이 잘 되는 옷을 착용하세요','매장 내 환기를 수시로 확인하세요','휴식 시간을 규칙적으로 가지세요']};
-    } else if (heatIndex < 35) {
-        level='interest'; levelText='관심';
-        preventions={title:'⚡ 관심 단계 예방수칙',items:['물을 자주 마시고 카페인 음료는 피하세요','매장 내 온도를 수시로 확인하세요','어지러움이나 두통이 느껴지면 즉시 휴식하세요','동료 직원의 건강 상태도 함께 살펴주세요','가능하면 직사광선을 피하세요']};
-    } else if (heatIndex < 37) {
-        level='caution'; levelText='주의 (주의보)';
-        preventions={title:'🔶 주의 단계 예방수칙',items:['야외 작업 및 외부 활동을 최소화하세요','15~20분마다 시원한 물을 마시세요','매시간 10~15분 이상 시원한 곳에서 휴식하세요','몸에 이상 증상이 느껴지면 즉시 관리자에게 알리세요','에어컨, 선풍기 등 냉방기구를 적극 활용하세요','자각증상 체크리스트를 수시로 확인하세요']};
-    } else if (heatIndex < 40) {
-        level='warning'; levelText='경고 (경보)';
-        preventions={title:'🔴 경고 단계 예방수칙',items:['야외 활동을 자제하고 실내에서 근무하세요','10분마다 수분을 섭취하세요','매시간 15분 이상 반드시 휴식하세요','두통, 어지러움, 구역질 등 증상 발생 시 즉시 작업을 중단하세요','시원한 물수건으로 목, 겨드랑이 등을 식혀주세요','혼자 작업하지 말고 동료와 함께 근무하세요','증상이 심해지면 119에 즉시 신고하세요']};
-    } else {
-        level='danger'; levelText='위험';
-        preventions={title:'🚨 위험 단계 예방수칙',items:['모든 야외 활동을 즉시 중단하세요','냉방이 되는 실내에서만 활동하세요','수시로 물을 마시고 절대 갈증을 참지 마세요','조금이라도 이상 증상이 느껴지면 즉시 작업을 중단하세요','관리자에게 즉시 보고하고 시원한 장소로 이동하세요','의식이 흐려지거나 체온이 높아지면 119에 즉시 신고하세요','동료 직원의 상태를 수시로 확인하세요']};
-    }
-    resultWrapper.className = 'level-' + level;
-    resultTemp.textContent = heatIndex.toFixed(1) + '°C';
-    resultBadge.textContent = levelText;
-    preventionTitle.textContent = preventions.title;
-    preventionList.innerHTML = preventions.items.map(item => '<li>' + item + '</li>').join('');
-    resultArea.classList.add('show');
-    setTimeout(() => { resultArea.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
-}
-
-function resetCalc() {
-    document.getElementById('tempInput').value = '';
-    document.getElementById('humidInput').value = '';
-    document.getElementById('resultArea').classList.remove('show');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
+// ===== 자각증상 체크리스트 =====
 const symptoms = ['평소보다 높은 체온','두통','어지러움','메스꺼움','근육 경련','지나치게 많은 땀을 흘림','구역질','갑작스런 피로감'];
 const answers = new Array(8).fill(null);
 
 function buildChecklist() {
     const container = document.getElementById('checklistContainer');
-    container.innerHTML = symptoms.map((s, i) =>
-        '<div class="checklist-item"><span class="num">' + (i+1) + '.</span><span class="symptom-text">' + s + '</span><div class="toggle-group"><button class="toggle-btn yes" id="yes-' + i + '" onclick="toggleAnswer(' + i + ',true)">예</button><button class="toggle-btn no" id="no-' + i + '" onclick="toggleAnswer(' + i + ',false)">아니오</button></div></div>'
-    ).join('');
+    container.innerHTML = symptoms.map(function(s, i) {
+        return '<div class="checklist-item"><span class="num">' + (i+1) + '.</span><span class="symptom-text">' + s + '</span><div class="toggle-group"><button class="toggle-btn yes" id="yes-' + i + '" onclick="toggleAnswer(' + i + ',true)">예</button><button class="toggle-btn no" id="no-' + i + '" onclick="toggleAnswer(' + i + ',false)">아니오</button></div></div>';
+    }).join('');
 }
 
 function toggleAnswer(index, isYes) {
-    const yesBtn = document.getElementById('yes-' + index);
-    const noBtn = document.getElementById('no-' + index);
+    var yesBtn = document.getElementById('yes-' + index);
+    var noBtn = document.getElementById('no-' + index);
     if (answers[index] === isYes) {
         answers[index] = null;
         yesBtn.classList.remove('selected');
@@ -316,12 +355,12 @@ function toggleAnswer(index, isYes) {
 }
 
 function updateCheckResult() {
-    const yesCount = answers.filter(a => a === true).length;
+    var yesCount = answers.filter(function(a) { return a === true; }).length;
     document.getElementById('yesCount').textContent = yesCount;
-    const guidelineArea = document.getElementById('guidelineArea');
+    var guidelineArea = document.getElementById('guidelineArea');
     if (yesCount >= 2) {
         guidelineArea.classList.add('show');
-        setTimeout(() => { guidelineArea.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+        setTimeout(function() { guidelineArea.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
     } else {
         guidelineArea.classList.remove('show');
     }
@@ -329,7 +368,7 @@ function updateCheckResult() {
 
 function resetChecklist() {
     answers.fill(null);
-    document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('selected'));
+    document.querySelectorAll('.toggle-btn').forEach(function(btn) { btn.classList.remove('selected'); });
     document.getElementById('yesCount').textContent = '0';
     document.getElementById('guidelineArea').classList.remove('show');
     window.scrollTo({ top: 0, behavior: 'smooth' });
