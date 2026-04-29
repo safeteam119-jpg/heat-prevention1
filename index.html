@@ -131,20 +131,20 @@
                     <option value="">지역을 선택하세요</option>
                     <option value="seoul">서울</option>
                     <option value="incheon">인천</option>
-                    <option value="gyeonggi">경기 (수원)</option>
+                    <option value="gyeonggi">경기</option>
                     <option value="busan">부산</option>
                     <option value="daegu">대구</option>
                     <option value="gwangju">광주</option>
                     <option value="daejeon">대전</option>
                     <option value="ulsan">울산</option>
                     <option value="sejong">세종</option>
-                    <option value="gangwon">강원 (춘천)</option>
-                    <option value="chungbuk">충북 (청주)</option>
-                    <option value="chungnam">충남 (홍성)</option>
-                    <option value="jeonbuk">전북 (전주)</option>
-                    <option value="jeonnam">전남 (무안)</option>
-                    <option value="gyeongbuk">경북 (안동)</option>
-                    <option value="gyeongnam">경남 (창원)</option>
+                    <option value="gangwon">강원</option>
+                    <option value="chungbuk">충북</option>
+                    <option value="chungnam">충남</option>
+                    <option value="jeonbuk">전북</option>
+                    <option value="jeonnam">전남</option>
+                    <option value="gyeongbuk">경북</option>
+                    <option value="gyeongnam">경남</option>
                     <option value="jeju">제주</option>
                 </select>
                 <div id="weatherContent">
@@ -158,16 +158,6 @@
                 <ul id="preventionList"></ul>
             </div>
 
-            <!-- 안내 배너 -->
-            <div class="info-banner">
-                <span class="info-icon">💡</span>
-                <span>여름철 작업 중 더위를 느끼실 때는 수시로 체감온도를 확인해주세요.</span>
-            </div>
-            <div class="info-banner">
-                <span class="info-icon">💡</span>
-                <span>이상 증상이 느껴지면 즉시 체크리스트를 활용하여 적절한 조치를 취해주세요.</span>
-            </div>
-
             <!-- 체크리스트 버튼 -->
             <button class="menu-btn" onclick="showPage('checkPage')">
                 <div class="icon">📋</div>
@@ -177,6 +167,16 @@
                 </div>
                 <span class="arrow">›</span>
             </button>
+
+            <!-- 안내 배너 -->
+            <div class="info-banner">
+                <span class="info-icon">💡</span>
+                <span>여름철 작업 중 더위를 느끼실 때는 수시로 체감온도를 확인해주세요.</span>
+            </div>
+            <div class="info-banner">
+                <span class="info-icon">💡</span>
+                <span>이상 증상이 느껴지면 즉시 체크리스트를 활용하여 적절한 조치를 취해주세요.</span>
+            </div>
         </div>
 
         <!-- 자각증상 체크리스트 페이지 -->
@@ -214,20 +214,20 @@
 const regions = {
     seoul:    { name: '서울',       lat: 37.5665, lon: 126.9780 },
     incheon:  { name: '인천',       lat: 37.4563, lon: 126.7052 },
-    gyeonggi: { name: '경기 (수원)', lat: 37.2636, lon: 127.0286 },
+    gyeonggi: { name: '경기', lat: 37.2636, lon: 127.0286 },
     busan:    { name: '부산',       lat: 35.1796, lon: 129.0756 },
     daegu:    { name: '대구',       lat: 35.8714, lon: 128.6014 },
     gwangju:  { name: '광주',       lat: 35.1595, lon: 126.8526 },
     daejeon:  { name: '대전',       lat: 36.3504, lon: 127.3845 },
     ulsan:    { name: '울산',       lat: 35.5384, lon: 129.3114 },
     sejong:   { name: '세종',       lat: 36.4800, lon: 127.2890 },
-    gangwon:  { name: '강원 (춘천)', lat: 37.8813, lon: 127.7298 },
-    chungbuk: { name: '충북 (청주)', lat: 36.6424, lon: 127.4890 },
-    chungnam: { name: '충남 (홍성)', lat: 36.6011, lon: 126.6603 },
-    jeonbuk:  { name: '전북 (전주)', lat: 35.8242, lon: 127.1480 },
-    jeonnam:  { name: '전남 (무안)', lat: 34.9906, lon: 126.4714 },
-    gyeongbuk:{ name: '경북 (안동)', lat: 36.5684, lon: 128.7294 },
-    gyeongnam:{ name: '경남 (창원)', lat: 35.2280, lon: 128.6811 },
+    gangwon:  { name: '강원', lat: 37.8813, lon: 127.7298 },
+    chungbuk: { name: '충북', lat: 36.6424, lon: 127.4890 },
+    chungnam: { name: '충남', lat: 36.6011, lon: 126.6603 },
+    jeonbuk:  { name: '전북', lat: 35.8242, lon: 127.1480 },
+    jeonnam:  { name: '전남', lat: 34.9906, lon: 126.4714 },
+    gyeongbuk:{ name: '경북', lat: 36.5684, lon: 128.7294 },
+    gyeongnam:{ name: '경남', lat: 35.2280, lon: 128.6811 },
     jeju:     { name: '제주',       lat: 33.4996, lon: 126.5312 }
 };
 
